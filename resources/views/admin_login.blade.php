@@ -1,4 +1,26 @@
 <!DOCTYPE html>
+<?php
+  if(isset($_POST['submit'])){
+     $name;
+     $captcha;
+     if(isset($_POST['name'])){
+        $name = $_POST['name'];
+     }
+     if(isset($_POST['g-recaptcha-response'])){
+        $captcha = $_POST['g-recaptcha-response'];
+     }
+     if(!$captcha){
+        echo '<h2>Hay xac nhan CAPTCHA</h2>';
+     }else{
+        $response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret6LerqT8bAAAAAPfBFrNa_aPYJfRqWLXWNgKvEY-G&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']);
+        if($response.success == false){
+           echo '<h2>SPAM!</h2>';
+        }else{
+           echo '<h2>'.$name.' Khong phai robot :)</h2>';
+        }
+     }
+  }
+?>
 <head>
 <title>Visitors an Admin Panel Category Bootstrap Responsive Website Template | Login :: w3layouts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,6 +44,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
 <body>
 <div class="log-w3">
+
 <div class="w3layouts-main">
 	<h2>Đăng nhập</h2>
 	<?php
@@ -40,8 +63,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<h6><a href="#">Quên mật khẩu ?</a></h6>
 				<div class="clearfix"></div>
 				<input type="submit" value="Đăng nhập" name="login">
+				<div class="g-recaptcha" data-sitekey="6LerqT8bAAAAAGD-y1loiLLebTT9r7FibXU4TWfa"></div>
 		</form>
 		<p>Bạn chưa có tài khoản ?<a href="registration.html">Tạo tài khoản</a></p>
+		<br>
+		<a class="circle facebook" href=" {{URL::to('/login-facebook')}} ">
+			<i class="fa fa-facebook-square fa-2x"></i>
+		</a>
+		<a class="circle twitter" href="#">
+			<i class="fa fa-twitter-square fa-2x"></i>
+		</a>
+		<a class="circle google" href="{{URL::to('/login-google')}}">
+			<i class="fa fa-google-plus-official fa-2x"></i>
+		</a>
 </div>
 </div>
 <script src="{{asset('public/backend/js/bootstrap.js')}}"></script>
@@ -51,5 +85,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="{{asset('public/backend/js/jquery.nicescroll.js')}}"></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
 <script src="{{('public/backend/js/jquery.scrollTo.js')}}"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+	window.onload = function() {
+	  var recaptcha = document.forms["contactForm"]["g-recaptcha-response"];
+	  recaptcha.required = true;
+	  recaptcha.oninvalid = function(e) {
+	
+		alert("Please complete the captcha");
+	   }
+	}
+</script>
 </body>
 </html>

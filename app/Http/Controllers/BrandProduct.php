@@ -19,6 +19,7 @@ class BrandProduct extends Controller
         }else{
             return Redirect::to('admin')->send();
         }
+        
     }
     public function add_brand_product(){
         $this->AuthLogin();

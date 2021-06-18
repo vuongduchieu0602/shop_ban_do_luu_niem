@@ -34,5 +34,14 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
-
+    'facebook' => [
+        'client_id'=>'320885186150762',
+        'client_secret'=>'a138d28c06f82d2037ef0ef83c527ebf',
+        'redirect'=>'https://vuongduchieu.com/callback'
+    ],
+    'google' => [
+        'client_id' => '750218484740-1iaeadefih3ckt92renk2ld37j7o2uvti.apps.googleusercontent.com',
+        'client_secret' => 'PZHxXe8PDPVzpQVhvMAUbT95',
+        'redirect' => 'http://vuongduchieu/google/callback',
+    ],
 ];
